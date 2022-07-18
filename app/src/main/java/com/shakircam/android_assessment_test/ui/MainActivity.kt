@@ -2,7 +2,6 @@ package com.shakircam.android_assessment_test.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.navigation.NavController

@@ -14,7 +14,7 @@
     <string name="gist">Public Gist: </string>
     <string name="privat_repo">Private repos: 0  </string>
     <string name="position">position</string>
-    <string name="repoTitle">Repository</string>
+    <string name="repoTitle">Top android repository</string>
     <string name="name">John Dow</string>
     <string name="email">Johndow@gmail.com</string>
     <string name="des">Description</string>
