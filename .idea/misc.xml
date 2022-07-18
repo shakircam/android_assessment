@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ITm/StudioProjects/AndroidAssessmentTest/app/src/main/res/drawable-v24/ic_profile.xml" value="0.3635" />
+        <entry key="..\:/Users/ITm/StudioProjects/AndroidAssessmentTest/app/src/main/res/drawable/details_item_background.xml" value="0.315" />
         <entry key="..\:/Users/ITm/StudioProjects/AndroidAssessmentTest/app/src/main/res/layout/activity_main.xml" value="0.3484375" />
+        <entry key="..\:/Users/ITm/StudioProjects/AndroidAssessmentTest/app/src/main/res/layout/details_item_background.xml" value="0.3625" />
         <entry key="..\:/Users/ITm/StudioProjects/AndroidAssessmentTest/app/src/main/res/layout/drawer_header.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/ITm/StudioProjects/AndroidAssessmentTest/app/src/main/res/layout/fragment_repository.xml" value="0.3134057971014493" />
         <entry key="..\:/Users/ITm/StudioProjects/AndroidAssessmentTest/app/src/main/res/layout/fragment_repository_details.xml" value="0.358695652173913" />

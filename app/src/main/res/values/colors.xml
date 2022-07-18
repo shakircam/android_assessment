@@ -13,6 +13,6 @@
     <color name="shimmerColor">#dddddd</color>
     <color name="dividerColor">#404040</color>
     <color name="subTextColor">#B6B0B0</color>
-
+    <color name="ashe">#EEEEEE</color>
     <color name="reply_blue_600">#4a6572</color>
 </resources>

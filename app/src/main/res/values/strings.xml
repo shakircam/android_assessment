@@ -17,4 +17,7 @@
     <string name="repoTitle">Repository</string>
     <string name="name">John Dow</string>
     <string name="email">Johndow@gmail.com</string>
+    <string name="des">Description</string>
+    <string name="owner">Owner</string>
+    <string name="date">Last update time</string>
 </resources>
