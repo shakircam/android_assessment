@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,6 +14,14 @@ import com.shakircam.android_assessment_test.core.BaseViewModel
 import com.shakircam.android_assessment_test.domain.repository.GithubRepository
 import com.shakircam.android_assessment_test.model.Repository.Item
 import com.shakircam.android_assessment_test.model.Repository
+import com.shakircam.android_assessment_test.utils.AppPreference
+import com.shakircam.android_assessment_test.utils.AppPreferenceImpl
+import com.shakircam.android_assessment_test.utils.Constants.IS_STORE
+import com.shakircam.android_assessment_test.utils.Constants.ORDER
+import com.shakircam.android_assessment_test.utils.Constants.PAGE_LIMIT
+import com.shakircam.android_assessment_test.utils.Constants.PAGE_NUMBER
+import com.shakircam.android_assessment_test.utils.Constants.SEARCH_QUERY
+import com.shakircam.android_assessment_test.utils.Constants.SORT
 import com.shakircam.android_assessment_test.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,33 +35,30 @@ import javax.inject.Inject
 class RepositoryViewModel@Inject constructor(private val githubRepository: GithubRepository, application: Application
 ) : BaseViewModel(application) {
 
+    private  var appPreference: AppPreference = AppPreferenceImpl(getApplication())
 
-    val readGithubRepository: LiveData<List<Repository.Item>> = githubRepository.getAllRepositoryItem()
 
-    private fun insertListOfRepository(item: List<Item>) =
-        viewModelScope.launch(Dispatchers.IO) {
-            githubRepository.insertListOfRepository(item)
-        }
-
+    val readGithubRepository: LiveData<List<Item>> = githubRepository.getAllRepositoryItem()
     private val _repoResponse : MutableLiveData<Resource<Repository>> = MutableLiveData()
     val repoResponse: LiveData<Resource<Repository>> = _repoResponse
 
-    var  searchQuery = "Android"
-    var  sortBy = "stars"
-    var  orderBy = "asc"
-    var  page = 1
-    var  perPage = 50
+
+    /** Checking the internet connection first.
+     * If internet is available then we check is item sored in room db.
+     * If not then call the getRepo function. */
 
     init {
-        /** Checking internet connection first. if internet is available then we call the getCommmit function. */
+
         if (hasInternetConnection()){
-            getRepo()
+            if (appPreference.getBoolean(IS_STORE) == false){
+                getRepo()
+            }
         }
     }
 
-    private fun getRepo()= viewModelScope.launch {
+    private fun getRepo() = viewModelScope.launch {
         _repoResponse.postValue(Resource.Loading())
-        val response = githubRepository.getMostStarsRepository(searchQuery,sortBy,orderBy,page,perPage)
+        val response = githubRepository.getMostStarsRepository(SEARCH_QUERY,SORT,ORDER,PAGE_NUMBER,PAGE_LIMIT)
         _repoResponse.postValue(handleRepoResponse(response))
     }
 
@@ -64,6 +70,7 @@ class RepositoryViewModel@Inject constructor(private val githubRepository: Githu
                 val item = result!!.items
                 if (item.isNotEmpty()){
                     offlineCacheRepository(item)
+                    appPreference.setBoolean(IS_STORE,true)
                 }
                 return Resource.Success(result)
             }
@@ -76,6 +83,10 @@ class RepositoryViewModel@Inject constructor(private val githubRepository: Githu
         insertListOfRepository(item)
     }
 
+    private fun insertListOfRepository(item: List<Item>) =
+        viewModelScope.launch(Dispatchers.IO) {
+            githubRepository.insertListOfRepository(item)
+        }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun hasInternetConnection(): Boolean {

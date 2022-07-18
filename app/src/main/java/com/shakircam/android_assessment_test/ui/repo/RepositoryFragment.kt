@@ -2,11 +2,14 @@ package com.shakircam.android_assessment_test.ui.repo
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -14,6 +17,7 @@ import com.shakircam.android_assessment_test.databinding.FragmentRepositoryBindi
 import com.shakircam.android_assessment_test.utils.BindingFragment
 import com.shakircam.android_assessment_test.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 
@@ -40,16 +44,7 @@ class RepositoryFragment : BindingFragment<FragmentRepositoryBinding, Repository
         readGithubRepository()
     }
 
-    override fun onResume() {
-        super.onResume()
-        shimmerFrameLayout.startShimmer()
 
-    }
-
-    override fun onPause() {
-        shimmerFrameLayout.stopShimmer()
-        super.onPause()
-    }
 
     private fun initRecyclerView() {
         val mRecyclerView = binding.recyclerView
@@ -92,5 +87,15 @@ class RepositoryFragment : BindingFragment<FragmentRepositoryBinding, Repository
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        shimmerFrameLayout.startShimmer()
+
+    }
+
+    override fun onPause() {
+        shimmerFrameLayout.stopShimmer()
+        super.onPause()
+    }
 
 }
