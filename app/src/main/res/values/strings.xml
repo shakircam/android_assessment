@@ -15,4 +15,6 @@
     <string name="privat_repo">Private repos: 0  </string>
     <string name="position">position</string>
     <string name="repoTitle">Repository</string>
+    <string name="name">John Dow</string>
+    <string name="email">Johndow@gmail.com</string>
 </resources>

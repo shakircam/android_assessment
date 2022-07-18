@@ -31,7 +31,7 @@
             android:id="@+id/profileImageView"
             app:layout_constraintTop_toBottomOf="@id/repoTitleTv"
             app:layout_constraintStart_toStartOf="parent"
-            loadImageFromUrl="@{repo.owner.avatar_url}"
+            loadUserImage="@{repo.owner.avatar_url}"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_width="24dp"

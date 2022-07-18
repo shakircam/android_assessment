@@ -2,10 +2,13 @@ package com.shakircam.android_assessment_test.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.shakircam.android_assessment_test.R
 import com.shakircam.android_assessment_test.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,10 +32,40 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.repositoryFragment
-            )
+                R.id.repositoryFragment,
+                R.id.historyFragment
+            ), binding.drawerLayout
         )
 
+        //menu item click handle
+        binding.navigationView.setupWithNavController(navController)
+        // connect appbar with nav controller
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
+        //hide bottom navigation in specific fragment
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+
+                    R.id.repositoryDetailsFragment ->
+                    binding.bottomNavigationView.visibility = View.GONE
+
+                else ->
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+            }
+        }
     }
+
+    //open drawer when drawer icon clicked and back btn pressed
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.navHostFragment).navigateUp(appBarConfiguration)
+    }
+
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return NavigationUI.onNavDestinationSelected(item, navController)
+                || super.onOptionsItemSelected(item)
+    }
+
 }

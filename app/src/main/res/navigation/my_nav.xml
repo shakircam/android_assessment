@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/repositoryFragment"
         android:name="com.shakircam.android_assessment_test.ui.repo.RepositoryFragment"
-        android:label="fragment_repository"
+        android:label="Repository"
         tools:layout="@layout/fragment_repository" >
         <action
             android:id="@+id/action_repositoryFragment_to_repositoryDetailsFragment"
@@ -17,11 +17,16 @@
     <fragment
         android:id="@+id/repositoryDetailsFragment"
         android:name="com.shakircam.android_assessment_test.ui.repo.RepositoryDetailsFragment"
-        android:label="fragment_repository_details"
+        android:label="Details"
         tools:layout="@layout/fragment_repository_details" >
 
         <argument
             android:name="currentItem"
             app:argType="com.shakircam.android_assessment_test.model.Repository$Item" />
     </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.shakircam.android_assessment_test.ui.history.HistoryFragment"
+        android:label="History"
+        tools:layout="@layout/fragment_history" />
 </navigation>

@@ -4,9 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -30,7 +27,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 
-@RequiresApi(Build.VERSION_CODES.M)
+
 @HiltViewModel
 class RepositoryViewModel@Inject constructor(private val githubRepository: GithubRepository, application: Application
 ) : BaseViewModel(application) {
@@ -62,7 +59,7 @@ class RepositoryViewModel@Inject constructor(private val githubRepository: Githu
         _repoResponse.postValue(handleRepoResponse(response))
     }
 
-    private fun handleRepoResponse(response: Response<Repository>): Resource<Repository>? {
+    private fun handleRepoResponse(response: Response<Repository>): Resource<Repository> {
 
         if (response.isSuccessful){
 
@@ -88,7 +85,7 @@ class RepositoryViewModel@Inject constructor(private val githubRepository: Githu
             githubRepository.insertListOfRepository(item)
         }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
             Context.CONNECTIVITY_SERVICE
