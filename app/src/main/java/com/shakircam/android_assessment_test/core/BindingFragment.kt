@@ -1,4 +1,4 @@
-package com.shakircam.android_assessment_test.utils
+package com.shakircam.android_assessment_test.core
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.shakircam.android_assessment_test.core.BaseViewModel
 
-abstract class BindingFragment <out T : ViewBinding,ViewModel : BaseViewModel> : Fragment() {
+abstract class BindingFragment <out T : ViewBinding,ViewModel : BaseAndroidViewModel> : Fragment() {
     private var _binding : ViewBinding? = null
     @Suppress("UNCHECKED_CAST")
     protected val binding : T

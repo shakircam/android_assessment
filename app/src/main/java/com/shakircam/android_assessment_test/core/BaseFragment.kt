@@ -7,21 +7,27 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB : ViewBinding, ViewModel : BaseViewModel> : Fragment() {
+abstract class BaseFragment<out T : ViewBinding,ViewModel : BaseViewModel> : Fragment() {
 
-    protected lateinit var binding: VB
-    protected abstract val viewModel: ViewModel
+    private var _binding : ViewBinding? = null
+    @Suppress("UNCHECKED_CAST")
+    protected val binding : T
+        get() = _binding as T
 
-    abstract fun getViewBinding(): VB
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding = getViewBinding()
-        return binding.root
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = bindingInflater(inflater)
+        return _binding!!.root
+
     }
 
+
+    protected abstract val viewModel: ViewModel
+    protected  abstract val bindingInflater : (LayoutInflater) -> ViewBinding
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

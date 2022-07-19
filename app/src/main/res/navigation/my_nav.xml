@@ -25,8 +25,8 @@
             app:argType="com.shakircam.android_assessment_test.model.Repository$Item" />
     </fragment>
     <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.shakircam.android_assessment_test.ui.history.HistoryFragment"
-        android:label="History"
-        tools:layout="@layout/fragment_history" />
+        android:id="@+id/commitFragment"
+        android:name="com.shakircam.android_assessment_test.ui.commit.CommitFragment"
+        android:label="Commit" />
+
 </navigation>

@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.shakircam.android_assessment_test.core.BaseViewModel
+import com.shakircam.android_assessment_test.core.BaseAndroidViewModel
 import com.shakircam.android_assessment_test.domain.repository.GithubRepository
 import com.shakircam.android_assessment_test.model.Repository.Item
 import com.shakircam.android_assessment_test.model.Repository
@@ -30,7 +30,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepositoryViewModel@Inject constructor(private val githubRepository: GithubRepository, application: Application
-) : BaseViewModel(application) {
+) : BaseAndroidViewModel(application) {
 
     private  var appPreference: AppPreference = AppPreferenceImpl(getApplication())
 
@@ -84,6 +84,7 @@ class RepositoryViewModel@Inject constructor(private val githubRepository: Githu
         viewModelScope.launch(Dispatchers.IO) {
             githubRepository.insertListOfRepository(item)
         }
+
 
 
     private fun hasInternetConnection(): Boolean {

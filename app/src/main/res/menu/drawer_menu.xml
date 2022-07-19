@@ -8,8 +8,8 @@
         android:title="Home"
         android:icon="@drawable/home" />
 
-    <item android:id="@+id/historyFragment"
-        android:title="History"
+    <item android:id="@+id/commitFragment"
+        android:title="Commit"
         android:icon="@drawable/history" />
 
 </menu>

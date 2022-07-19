@@ -1,6 +1,7 @@
 package com.shakircam.android_assessment_test.data.network
 
 
+import com.shakircam.android_assessment_test.model.Commits
 import com.shakircam.android_assessment_test.model.Repository
 import retrofit2.Response
 import retrofit2.http.GET
@@ -17,5 +18,8 @@ interface GithubApi {
         @Query("page")page : Int,
         @Query("per_page")perPage : Int,
     ):Response<Repository>
+
+    @GET("repos/flutter/flutter/commits")
+    suspend fun getGithubCommit(): Response<MutableList<Commits.CommitsItem>>
 
 }

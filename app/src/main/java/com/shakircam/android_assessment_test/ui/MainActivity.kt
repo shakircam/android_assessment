@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.repositoryFragment,
-                R.id.historyFragment
+                R.id.commitFragment
             ), binding.drawerLayout
         )
 

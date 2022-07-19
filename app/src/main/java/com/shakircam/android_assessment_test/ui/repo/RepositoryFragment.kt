@@ -10,10 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.shakircam.android_assessment_test.databinding.FragmentRepositoryBinding
-import com.shakircam.android_assessment_test.utils.BindingFragment
-import com.shakircam.android_assessment_test.utils.Resource
+import com.shakircam.android_assessment_test.core.BindingFragment
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 
 @AndroidEntryPoint
