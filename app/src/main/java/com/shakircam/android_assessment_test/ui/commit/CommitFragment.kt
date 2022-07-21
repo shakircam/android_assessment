@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.shakircam.android_assessment_test.core.BaseFragment
+import com.shakircam.android_assessment_test.core.BindingFragment
 import com.shakircam.android_assessment_test.databinding.FragmentCommitBinding
 import com.shakircam.android_assessment_test.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CommitFragment :  BaseFragment<FragmentCommitBinding, CommitViewModel>() {
+class CommitFragment :  BindingFragment<FragmentCommitBinding, CommitViewModel>() {
 
     private val adapter by lazy { CommitAdapter() }
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout

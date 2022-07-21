@@ -11,7 +11,7 @@
         android:id="@+id/title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:textSize="18sp"
         android:textColor="@color/white"

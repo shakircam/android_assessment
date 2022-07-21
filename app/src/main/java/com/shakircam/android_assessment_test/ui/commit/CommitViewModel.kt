@@ -1,8 +1,14 @@
 package com.shakircam.android_assessment_test.ui.commit
 
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.shakircam.android_assessment_test.core.BaseAndroidViewModel
 import com.shakircam.android_assessment_test.core.BaseViewModel
 import com.shakircam.android_assessment_test.domain.repository.GithubRepository
 import com.shakircam.android_assessment_test.model.Commits
@@ -13,8 +19,8 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class CommitViewModel @Inject constructor(private val userRepository: GithubRepository
-) : BaseViewModel() {
+class CommitViewModel @Inject constructor(private val userRepository: GithubRepository,application: Application
+) : BaseAndroidViewModel(application) {
 
     /** RETROFIT */
     /**  ------ github commits call ----- */
@@ -25,7 +31,10 @@ class CommitViewModel @Inject constructor(private val userRepository: GithubRepo
 
 
     init {
-        getCommit()
+        if (hasInternetConnection()){
+            getCommit()
+        }
+
     }
 
     private fun getCommit() = viewModelScope.launch {
@@ -66,5 +75,19 @@ class CommitViewModel @Inject constructor(private val userRepository: GithubRepo
 
         }
         return Resource.Error(response.message())
+    }
+
+    private fun hasInternetConnection(): Boolean {
+        val connectivityManager = getApplication<Application>().getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+        return when {
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
     }
 }

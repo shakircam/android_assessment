@@ -37,7 +37,7 @@ class RepositoryViewModel@Inject constructor(private val githubRepository: Githu
 
     val readGithubRepository: LiveData<List<Item>> = githubRepository.getAllRepositoryItem()
     private val _repoResponse : MutableLiveData<Resource<Repository>> = MutableLiveData()
-    val repoResponse: LiveData<Resource<Repository>> = _repoResponse
+
 
 
     /** Checking the internet connection first.
