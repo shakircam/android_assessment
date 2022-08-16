@@ -10,7 +10,7 @@ object Constants {
     const val IS_STORE = "save"
     const val DATABASE_NAME = "app_database"
     const val TABLE_NAME = "repository_table"
-    const val HISTORY_TABLE = "history_table"
+    const val SHARED_PREFERENCE = "app_sharedPreference"
 
     // RETROFIT
     const val  BASE_URL = "https://api.github.com/"

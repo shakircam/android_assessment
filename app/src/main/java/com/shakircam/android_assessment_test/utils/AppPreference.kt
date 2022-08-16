@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 interface AppPreference {
 
 
-
     fun getString(key:String):String ?
     fun setString(key:String,value:String)
 

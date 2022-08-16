@@ -3,6 +3,8 @@ package com.shakircam.android_assessment_test.di
 
 import com.shakircam.android_assessment_test.domain.repository.GitHubRepositoryImp
 import com.shakircam.android_assessment_test.domain.repository.GithubRepository
+import com.shakircam.android_assessment_test.utils.AppPreference
+import com.shakircam.android_assessment_test.utils.AppPreferenceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -25,4 +27,4 @@ abstract class RepositoryModule {
         githubRepositoryImp: GitHubRepositoryImp
     ) : GithubRepository
 
-}
+ }

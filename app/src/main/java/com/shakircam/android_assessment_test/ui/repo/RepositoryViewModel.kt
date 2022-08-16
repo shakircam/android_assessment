@@ -1,9 +1,6 @@
 package com.shakircam.android_assessment_test.ui.repo
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -12,13 +9,13 @@ import com.shakircam.android_assessment_test.domain.repository.GithubRepository
 import com.shakircam.android_assessment_test.model.Repository.Item
 import com.shakircam.android_assessment_test.model.Repository
 import com.shakircam.android_assessment_test.utils.AppPreference
-import com.shakircam.android_assessment_test.utils.AppPreferenceImpl
 import com.shakircam.android_assessment_test.utils.Constants.IS_STORE
 import com.shakircam.android_assessment_test.utils.Constants.ORDER
 import com.shakircam.android_assessment_test.utils.Constants.PAGE_LIMIT
 import com.shakircam.android_assessment_test.utils.Constants.PAGE_NUMBER
 import com.shakircam.android_assessment_test.utils.Constants.SEARCH_QUERY
 import com.shakircam.android_assessment_test.utils.Constants.SORT
+import com.shakircam.android_assessment_test.utils.ExtensionFunction.hasInternetConnection
 import com.shakircam.android_assessment_test.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -29,16 +26,11 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class RepositoryViewModel@Inject constructor(private val githubRepository: GithubRepository, application: Application
+class RepositoryViewModel@Inject constructor(private val githubRepository: GithubRepository,private val appPreference: AppPreference, application: Application
 ) : BaseAndroidViewModel(application) {
-
-    private  var appPreference: AppPreference = AppPreferenceImpl(getApplication())
-
 
     val readGithubRepository: LiveData<List<Item>> = githubRepository.getAllRepositoryItem()
     private val _repoResponse : MutableLiveData<Resource<Repository>> = MutableLiveData()
-
-
 
     /** Checking the internet connection first.
      * If internet is available then we check is item sored in room db.
@@ -46,7 +38,7 @@ class RepositoryViewModel@Inject constructor(private val githubRepository: Githu
 
     init {
 
-        if (hasInternetConnection()){
+        if (hasInternetConnection(application)){
             if (appPreference.getBoolean(IS_STORE) == false){
                 getRepo()
             }
@@ -85,19 +77,4 @@ class RepositoryViewModel@Inject constructor(private val githubRepository: Githu
             githubRepository.insertListOfRepository(item)
         }
 
-
-
-    private fun hasInternetConnection(): Boolean {
-        val connectivityManager = getApplication<Application>().getSystemService(
-            Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
-        val activeNetwork = connectivityManager.activeNetwork ?: return false
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
-        return when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
-    }
 }

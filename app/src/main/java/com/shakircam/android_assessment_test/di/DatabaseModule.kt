@@ -3,6 +3,8 @@ package com.shakircam.android_assessment_test.di
 import android.content.Context
 import androidx.room.Room
 import com.shakircam.android_assessment_test.data.local.AppDatabase
+import com.shakircam.android_assessment_test.utils.AppPreference
+import com.shakircam.android_assessment_test.utils.AppPreferenceImpl
 import com.shakircam.android_assessment_test.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -34,4 +36,12 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideDao(database: AppDatabase) = database.repositoryDao()
+
+    @Singleton
+    @Provides
+    fun provideSharedPreference(@ApplicationContext context : Context): AppPreference {
+       return AppPreferenceImpl(context)
+    }
+
+
 }

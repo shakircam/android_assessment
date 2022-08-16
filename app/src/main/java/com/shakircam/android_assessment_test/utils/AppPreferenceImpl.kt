@@ -1,11 +1,12 @@
 package com.shakircam.android_assessment_test.utils
 
 import android.content.Context
+import com.shakircam.android_assessment_test.utils.Constants.SHARED_PREFERENCE
 
 
-class AppPreferenceImpl(context: Context): AppPreference  {
+class AppPreferenceImpl (context: Context): AppPreference  {
 
-    private val sharedPreferences = context.getSharedPreferences("app_sharedPreference",0)
+    private val sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE,0)
     private val editor = sharedPreferences.edit()
 
 
